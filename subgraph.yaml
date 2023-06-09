@@ -21,4 +21,25 @@ dataSources:
         - name: HiveFactory
           file: ./abis/HiveFactory.json
       eventHandlers:
+        - event: HiveCreated(uint256,address,uint256,uint16)
+          handler: handleHiveCreated
       file: ./src/mappings/hive-factory.ts
+templates:
+  - name: Hive
+    kind: ethereum/contract
+    network: localhost
+    source:
+      abi: Hive
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      file: ./src/mappings/hive.ts
+      entities:
+        - Hive
+      abis:
+        - name: Hive
+          file: ./abis/Hive.json
+      eventHandlers:
+        - event: MemberJoined(uint256,uint256)
+          handler: handleMemberJoined
