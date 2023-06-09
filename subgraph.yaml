@@ -1,0 +1,24 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+features:
+  - fullTextSearch
+dataSources:
+  - kind: ethereum/contract
+    name: HiveFactory
+    network: localhost
+    source:
+      abi: HiveFactory
+      startBlock: 0
+      address: "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: HiveFactory
+          file: ./abis/HiveFactory.json
+      eventHandlers:
+      file: ./src/mappings/hive-factory.ts

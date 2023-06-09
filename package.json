@@ -1,0 +1,17 @@
+{
+  "name": "bee-together",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graph codegen",
+    "graphhelp": "graph help",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ beetogether/beetogether",
+    "create-local": "graph create --node http://localhost:8020/ beetogether/beetogether",
+    "remove-local": "graph remove --node http://localhost:8020/ beetogether/beetogether",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 beetogether/beetogether --version-label 0.0.1"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.35.0",
+    "@graphprotocol/graph-ts": "^0.29.0"
+  }
+}
