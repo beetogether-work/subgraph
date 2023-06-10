@@ -10,7 +10,7 @@ dataSources:
     source:
       abi: HiveFactory
       startBlock: 0
-      address: "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE"
+      address: "0x59b670e9fA9D0A427751Af201D676719a970857b"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -50,6 +50,8 @@ templates:
           handler: handleProposalRequestCreated
         - event: ProposalRequestExecuted(uint256,indexed uint256,uint256)
           handler: handleProposalRequestExecuted
+        - event: FundsShared(uint256,indexed uint256,uint256)
+          handler: handleFundsShared
   - name: HiveData
     kind: file/ipfs
     mapping:

@@ -1,6 +1,7 @@
 import { BigInt, DataSourceContext } from "@graphprotocol/graph-ts";
 import {
   DataUriUpdated,
+  FundsShared,
   MemberJoined,
   ProposalRequestCreated,
   ProposalRequestExecuted,
@@ -64,6 +65,14 @@ export function handleProposalRequestExecuted(event: ProposalRequestExecuted): v
   const proposalRequest = getOrCreateProposalRequest(proposalRequestId, event.params.hiveId);
 
   proposalRequest.status = "Executed";
+  proposalRequest.save();
+}
+
+export function handleFundsShared(event: FundsShared): void {
+  const proposalRequestId = event.params.proposalRequestId;
+  const proposalRequest = getOrCreateProposalRequest(proposalRequestId, event.params.hiveId);
+
+  proposalRequest.sharedAmount = proposalRequest.sharedAmount.plus(event.params.amount);
   proposalRequest.save();
 }
 
