@@ -10,7 +10,7 @@ type Hive @entity {
 
 type HiveDescription @entity(immutable: true) {
   id: ID! # Uri
-  offeredServices: String!
-  manifesto: String!
+  offeredServices: String
+  manifesto: String
 }
 
