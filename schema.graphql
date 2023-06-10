@@ -7,6 +7,7 @@ type Hive @entity {
   cid: String # Uri of the description metadata
   description: HiveDescription # Hive description
   proposalRequests: [ProposalRequest!] @derivedFrom(field: "hive")
+  paymasterAddress: Bytes! # Address of hive contract
 }
 
 type HiveDescription @entity(immutable: true) {

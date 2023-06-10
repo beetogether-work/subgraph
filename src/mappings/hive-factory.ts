@@ -10,6 +10,7 @@ export function handleHiveCreated(event: HiveCreated): void {
   hive.owner = event.params.ownerId;
   hive.honeyFee = event.params.honeyFee;
   hive.members = [event.params.ownerId];
+  hive.paymasterAddress = event.params.paymasterAddress;
 
   hive.save();
 

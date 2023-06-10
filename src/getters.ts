@@ -10,6 +10,7 @@ export function getOrCreateHive(id: BigInt): Hive {
     hive.owner = ZERO;
     hive.honeyFee = 0;
     hive.members = [];
+    hive.paymasterAddress = ZERO_ADDRESS;
     hive.save();
   }
   return hive;
