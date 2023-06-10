@@ -3,6 +3,7 @@ import {
   DataUriUpdated,
   MemberJoined,
   ProposalRequestCreated,
+  ProposalRequestExecuted,
 } from "../../generated/templates/Hive/Hive";
 import { HiveData, ProposalRequestData } from "../../generated/templates";
 import { getOrCreateHive, getOrCreateProposalRequest } from "../getters";
@@ -55,6 +56,14 @@ export function handleProposalRequestCreated(event: ProposalRequestCreated): voi
   context.setString("id", dataId);
   ProposalRequestData.createWithContext(cid, context);
 
+  proposalRequest.save();
+}
+
+export function handleProposalRequestExecuted(event: ProposalRequestExecuted): void {
+  const proposalRequestId = event.params.proposalRequestId;
+  const proposalRequest = getOrCreateProposalRequest(proposalRequestId, event.params.hiveId);
+
+  proposalRequest.status = "Executed";
   proposalRequest.save();
 }
 
