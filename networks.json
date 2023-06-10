@@ -7,8 +7,8 @@
   },
   "mumbai": {
     "HiveFactory": {
-      "address": "0xeecFd8a85fbB9BbA5Dac2022C824e1c42C5d9634",
-      "startBlock": 36670038
+      "address": "0xc7BfFb0c1142a03C03E4110e625910996b978054",
+      "startBlock": 36690879
     }
   },
   "zkSync2-testnet": {
