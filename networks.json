@@ -10,5 +10,11 @@
       "address": "0xeecFd8a85fbB9BbA5Dac2022C824e1c42C5d9634",
       "startBlock": 36670038
     }
+  },
+  "zkSync2-testnet": {
+    "HiveFactory": {
+      "address": "0x4467e99ED7357A34C15f78174eb5172A9A524Ef1",
+      "startBlock": 7285180
+    }
   }
 }

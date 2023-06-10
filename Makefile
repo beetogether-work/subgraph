@@ -22,3 +22,9 @@ deploy-polygon:
 	graph codegen
 	graph build --network polygon
 	graph deploy --product hosted-service beetogether/beetogether-polygon
+
+deploy-zksync: 
+	graph codegen
+	graph build --network zkSync2-testnet
+	graph auth --product hosted-service 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
+	graph deploy --product hosted-service mattiapomelli/beetogether-zksync
