@@ -15,7 +15,8 @@ sub:
 deploy-mumbai: 
 	graph codegen
 	graph build --network mumbai
-	graph deploy --product hosted-service beetogether/beetogether-mumbai
+	graph auth --product hosted-service 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
+	graph deploy --product hosted-service mattiapomelli/beetogether-mumbai
 
 ## Mumbai hosted subgraph: https://thegraph.com/hosted-service/subgraph/beetogether/beetogether-polygon
 deploy-polygon: 
