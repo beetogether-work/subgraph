@@ -13,7 +13,7 @@
   },
   "zkSync2-testnet": {
     "HiveFactory": {
-      "address": "0x4467e99ED7357A34C15f78174eb5172A9A524Ef1",
+      "address": "0x98Ef8e54ec2fe89FCdA42d2cbC7F091508Aff5D4",
       "startBlock": 7285180
     }
   }
