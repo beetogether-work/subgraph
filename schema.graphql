@@ -6,11 +6,45 @@ type Hive @entity {
   members: [BigInt!]! # TalentLayerIDs of hive members
   cid: String # Uri of the description metadata
   description: HiveDescription # Hive description
+  proposalRequests: [ProposalRequest!] @derivedFrom(field: "hive")
 }
 
 type HiveDescription @entity(immutable: true) {
   id: ID! # Uri
   offeredServices: String
   manifesto: String
+}
+
+enum ProposalRequestStatus {
+  Pending
+  Executed
+}
+
+type ProposalRequest @entity {
+  id: ID!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+  ownerId: BigInt!
+  sharedAmount: BigInt!
+  status: ProposalRequestStatus! 
+  members: [BigInt!]! # TalentLayerIDs of hive members involved in the proposal
+  shares: [Int!]! # Share (percentge, per 10,000) of the funds for each hive member involved in the proposal
+  serviceId: BigInt! 
+  rateToken: String # Token used to pay the rate
+  rateAmount: BigInt # Rate amount
+  cid: String # cid of the description
+  platformId: BigInt
+  description: ProposalRequestDescription # Proposals that the description describes.
+  expirationDate: BigInt
+  hive: Hive! 
+}
+
+type ProposalRequestDescription @entity(immutable: true) {
+  id: ID! #Cid
+  proposal: ProposalRequest!
+  startDate: BigInt
+  about: String
+  expectedHours: BigInt
+  video_url: String
 }
 

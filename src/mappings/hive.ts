@@ -1,7 +1,11 @@
-import { BigInt, DataSourceContext, log } from "@graphprotocol/graph-ts";
-import { DataUriUpdated, MemberJoined } from "../../generated/templates/Hive/Hive";
-import { HiveData } from "../../generated/templates";
-import { getOrCreateHive } from "../getters";
+import { BigInt, DataSourceContext } from "@graphprotocol/graph-ts";
+import {
+  DataUriUpdated,
+  MemberJoined,
+  ProposalRequestCreated,
+} from "../../generated/templates/Hive/Hive";
+import { HiveData, ProposalRequestData } from "../../generated/templates";
+import { getOrCreateHive, getOrCreateProposalRequest } from "../getters";
 import { concatenate } from "../utils";
 
 export function handleMemberJoined(event: MemberJoined): void {
@@ -18,17 +22,40 @@ export function handleDataUriUpdated(event: DataUriUpdated): void {
 
   hive.cid = dataUri;
 
-  log.log(log.Level.INFO, "Here");
-
   const context = new DataSourceContext();
   context.setString("id", dataId);
   HiveData.createWithContext(dataUri, context);
 
-  log.log(log.Level.INFO, "handleDataUriUpdated");
-  log.log(log.Level.INFO, dataId);
-
   hive.description = dataId;
   hive.save();
+}
+
+export function handleProposalRequestCreated(event: ProposalRequestCreated): void {
+  const proposalRequestId = event.params.id;
+  const proposalRequest = getOrCreateProposalRequest(proposalRequestId, event.params.hiveId);
+
+  proposalRequest.hive = getOrCreateHive(event.params.hiveId).id;
+  proposalRequest.serviceId = event.params.serviceId;
+  proposalRequest.ownerId = event.params.ownerId;
+  proposalRequest.rateToken = event.params.rateToken.toHexString();
+  proposalRequest.rateAmount = event.params.rateAmount;
+  proposalRequest.platformId = event.params.platformId;
+  proposalRequest.expirationDate = event.params.expirationDate;
+  proposalRequest.createdAt = event.block.timestamp;
+  proposalRequest.updatedAt = event.block.timestamp;
+
+  const cid = event.params.dataUri;
+  proposalRequest.cid = cid;
+
+  const dataId = cid + "-" + event.block.timestamp.toString();
+  proposalRequest.description = dataId;
+
+  const context = new DataSourceContext();
+  context.setBigInt("proposalRequestId", proposalRequestId);
+  context.setString("id", dataId);
+  ProposalRequestData.createWithContext(cid, context);
+
+  proposalRequest.save();
 }
 
 // ==================================== Utility functions ===========================================

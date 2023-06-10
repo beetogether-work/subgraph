@@ -6,12 +6,11 @@ import {
   Bytes,
   dataSource,
   log,
+  BigInt,
 } from "@graphprotocol/graph-ts";
-import { HiveDescription } from "../../generated/schema";
+import { HiveDescription, ProposalRequestDescription } from "../../generated/schema";
 
 export function handleHiveData(content: Bytes): void {
-  log.log(log.Level.INFO, "handleHiveData");
-
   const checkJson = json.try_fromBytes(content);
   const jsonObject = checkJson.isOk ? checkJson.value.toObject() : null;
 
@@ -27,16 +26,29 @@ export function handleHiveData(content: Bytes): void {
   description.offeredServices = getValueAsString(jsonObject, "offeredServices");
   description.manifesto = getValueAsString(jsonObject, "manifesto");
 
-  log.log(log.Level.INFO, description.id);
+  description.save();
+}
 
-  // if (description.offeredServices !== null) {
-  //   log.info("Hive offeredServices", []);
-  //   log.info(description.offeredServices, []);
-  // }
-  // if (description.manifesto !== null) {
-  //   log.info("Hive manifesto", []);
-  //   log.info(description.manifesto, []);
-  // }
+export function handleProposalRequestData(content: Bytes): void {
+  const checkJson = json.try_fromBytes(content);
+  const jsonObject = checkJson.isOk ? checkJson.value.toObject() : null;
+
+  if (jsonObject === null) {
+    log.warning("Error parsing json: {}", [dataSource.stringParam()]);
+    return;
+  }
+
+  const context = dataSource.context();
+  const proposalId = context.getBigInt("proposalRequestId");
+  const id = context.getString("id");
+
+  let description = new ProposalRequestDescription(id);
+  description.proposal = proposalId.toString();
+
+  description.startDate = getValueAsBigInt(jsonObject, "startDate");
+  description.about = getValueAsString(jsonObject, "about");
+  description.expectedHours = getValueAsBigInt(jsonObject, "expectedHours");
+  description.video_url = getValueAsString(jsonObject, "video_url");
 
   description.save();
 }
@@ -51,4 +63,14 @@ function getValueAsString(jsonObject: TypedMap<string, JSONValue>, key: string):
   }
 
   return value.toString();
+}
+
+function getValueAsBigInt(jsonObject: TypedMap<string, JSONValue>, key: string): BigInt | null {
+  const value = jsonObject.get(key);
+
+  if (value == null || value.isNull() || value.kind != JSONValueKind.NUMBER) {
+    return null;
+  }
+
+  return value.toBigInt();
 }
