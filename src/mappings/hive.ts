@@ -43,6 +43,8 @@ export function handleProposalRequestCreated(event: ProposalRequestCreated): voi
   proposalRequest.rateAmount = event.params.rateAmount;
   proposalRequest.platformId = event.params.platformId;
   proposalRequest.expirationDate = event.params.expirationDate;
+  proposalRequest.members = event.params.members;
+  proposalRequest.shares = event.params.shares;
   proposalRequest.createdAt = event.block.timestamp;
   proposalRequest.updatedAt = event.block.timestamp;
 
