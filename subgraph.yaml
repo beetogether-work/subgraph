@@ -6,11 +6,11 @@ features:
 dataSources:
   - kind: ethereum/contract
     name: HiveFactory
-    network: localhost
+    network: mumbai
     source:
       abi: HiveFactory
-      startBlock: 0
-      address: "0x59b670e9fA9D0A427751Af201D676719a970857b"
+      address: "0xeecFd8a85fbB9BbA5Dac2022C824e1c42C5d9634"
+      startBlock: 36670038
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -27,7 +27,7 @@ dataSources:
 templates:
   - name: Hive
     kind: ethereum/contract
-    network: localhost
+    network: mumbai
     source:
       abi: Hive
     mapping:
@@ -65,7 +65,7 @@ templates:
       abis:
         - name: Hive
           file: ./abis/Hive.json
-    network: localhost
+    network: mumbai
   - name: ProposalRequestData
     kind: file/ipfs
     mapping:
@@ -78,4 +78,4 @@ templates:
       abis:
         - name: Hive
           file: ./abis/Hive.json
-    network: localhost
+    network: mumbai
