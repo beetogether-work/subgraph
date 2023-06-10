@@ -43,7 +43,7 @@ export function handleProposalRequestData(content: Bytes): void {
   const id = context.getString("id");
 
   let description = new ProposalRequestDescription(id);
-  description.proposal = proposalId.toString();
+  description.proposalRequest = proposalId.toString();
 
   description.startDate = getValueAsBigInt(jsonObject, "startDate");
   description.about = getValueAsString(jsonObject, "about");

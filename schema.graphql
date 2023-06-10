@@ -42,7 +42,7 @@ type ProposalRequest @entity {
 
 type ProposalRequestDescription @entity(immutable: true) {
   id: ID! #Cid
-  proposal: ProposalRequest!
+  proposalRequest: ProposalRequest!
   startDate: BigInt
   about: String
   expectedHours: BigInt
