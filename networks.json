@@ -16,5 +16,11 @@
       "address": "0x98Ef8e54ec2fe89FCdA42d2cbC7F091508Aff5D4",
       "startBlock": 7285180
     }
+  },
+  "mantle-testnet": {
+    "HiveFactory": {
+      "address": "0x5FC6c2fE038a79Bb5A5300dEa61162FFd3EaA276",
+      "startBlock": 10789555
+    }
   }
 }
